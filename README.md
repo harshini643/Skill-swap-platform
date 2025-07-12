@@ -3,7 +3,7 @@
 Skill Swap Platform
 
 #Team Members:
-Kudupudi Sriharshini
-Akshaya Putti
-Barenkala Yojitha
+Kudupudi Sriharshini "\n"
+Akshaya Putti "\n"
+Barenkala Yojitha "\n"
 
