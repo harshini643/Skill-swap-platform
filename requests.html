@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Swap Requests - Skill Swap Platform</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="requests-container">
+        <div class="requests-card">
+            <div class="requests-header">
+                <h1 class="platform-title">Skill Swap Platform</h1>
+                <div class="header-right">
+                    <button class="nav-btn" onclick="window.location.href='index.html'">Home</button>
+                    <div class="profile-pic-nav">
+                        <img id="navProfilePic" src="https://images.pexels.com/photos/771742/pexels-photo-771742.jpeg?auto=compress&cs=tinysrgb&w=40&h=40&fit=crop" alt="Profile">
+                    </div>
+                </div>
+            </div>
+
+            <div class="requests-content">
+                <div class="requests-filters">
+                    <select id="statusFilter" class="filter-select">
+                        <option value="">Pending</option>
+                        <option value="accepted">Accepted</option>
+                        <option value="rejected">Rejected</option>
+                    </select>
+                    <div class="search-container">
+                        <input type="text" id="requestsSearch" placeholder="Search..." class="search-input">
+                        <button class="search-btn">Search</button>
+                    </div>
+                </div>
+
+                <div class="requests-list" id="requestsList">
+                    <!-- Requests will be loaded here -->
+                </div>
+
+                <!-- Pagination -->
+                <div class="pagination" id="requestsPagination">
+                    <button class="page-btn"><</button>
+                    <div class="page-numbers">
+                        <span class="page-number active">1</span>
+                        <span class="page-number">2</span>
+                        <span class="page-number">3</span>
+                    </div>
+                    <button class="page-btn">></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="notification" class="notification"></div>
+
+    <script src="script.js"></script>
+    <script src="requests.js"></script>
+</body>
+</html>

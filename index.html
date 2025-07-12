@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skill Swap Platform</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Auth Modal -->
+    <div id="authModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="authTitle">Login to Your Account</h2>
+                <span class="close" onclick="hideAuthModal()">&times;</span>
+            </div>
+            <div class="modal-body">
+                <!-- Login Form -->
+                <div id="loginFormContainer">
+                    <form id="loginForm" class="auth-form">
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Password</label>
+                            <input type="password" id="password" name="password" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-full">Login</button>
+                    </form>
+                    <div class="auth-footer">
+                        <p>Don't have an account? <a href="#" onclick="showSignupForm()" class="auth-link">Sign up here</a></p>
+                    </div>
+                </div>
+
+                <!-- Signup Form -->
+                <div id="signupFormContainer" style="display: none;">
+                    <form id="signupForm" class="auth-form">
+                        <div class="form-group">
+                            <label for="signupUsername">Username</label>
+                            <input type="text" id="signupUsername" name="username" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="signupName">Full Name</label>
+                            <input type="text" id="signupName" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="signupEmail">Email</label>
+                            <input type="email" id="signupEmail" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="signupPassword">Password</label>
+                            <input type="password" id="signupPassword" name="password" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="signupLocation">Location (Optional)</label>
+                            <input type="text" id="signupLocation" name="location">
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-full">Create Account</button>
+                    </form>
+                    <div class="auth-footer">
+                        <p>Already have an account? <a href="#" onclick="showLoginForm()" class="auth-link">Login here</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main id="mainContent">
+        <!-- Header -->
+        <header class="main-header">
+            <div class="header-container">
+                <h1 class="platform-title">Skill Swap Platform</h1>
+                <div class="header-right">
+                    <div class="search-section">
+                        <select id="availabilityFilter" class="availability-filter">
+                            <option value="">Availability</option>
+                            <option value="weekends">Weekends</option>
+                            <option value="weekdays">Weekdays</option>
+                            <option value="evenings">Evenings</option>
+                            <option value="flexible">Flexible</option>
+                        </select>
+                        <div class="search-container">
+                            <input type="text" id="searchInput" placeholder="Search..." class="search-input">
+                            <button class="search-btn">Search</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Login Button (shown when not logged in) -->
+                    <button class="btn btn-primary login-btn" onclick="showAuthModal()">Login</button>
+                    
+                    <!-- User Profile Section (shown when logged in) -->
+                    <div class="user-profile-section" style="display: none;">
+                        <div class="profile-dropdown" id="profileDropdown">
+                            <div class="profile-trigger" id="profileTrigger">
+                                <img id="navProfileImage" src="" alt="Profile" class="nav-profile-pic">
+                            </div>
+                            <div class="dropdown-menu" id="dropdownMenu">
+                                <a href="#" onclick="showProfile()" class="dropdown-item">Profile</a>
+                                <a href="#" onclick="logout()" class="dropdown-item">Logout</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Profile Cards Section -->
+        <section class="profiles-section">
+            <div class="container">
+                <div id="profilesContainer" class="profiles-container">
+                    <!-- Profile cards will be loaded here -->
+                </div>
+
+                <!-- Pagination -->
+                <div class="pagination" id="pagination">
+                    <button class="page-btn" id="prevBtn"><</button>
+                    <div class="page-numbers" id="pageNumbers">
+                        <!-- Page numbers will be generated here -->
+                    </div>
+                    <button class="page-btn" id="nextBtn">></button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Profile Modal -->
+    <div id="profileModal" class="modal">
+        <div class="modal-content profile-modal">
+            <div class="modal-header">
+                <h2>My Profile</h2>
+                <span class="close" onclick="hideProfile()">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="profile-tabs">
+                    <button class="profile-tab active" onclick="showProfileTab('edit')">Edit Profile</button>
+                    <button class="profile-tab" onclick="showProfileTab('sent')">Sent Requests</button>
+                    <button class="profile-tab" onclick="showProfileTab('received')">Received Requests</button>
+                </div>
+
+                <!-- Edit Profile Tab -->
+                <div id="editTab" class="profile-tab-content">
+                    <div class="profile-content">
+                        <div class="profile-left">
+                            <form id="profileForm">
+                                <div class="form-group">
+                                    <label for="userName">Name</label>
+                                    <input type="text" id="userName" name="userName" class="form-input" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="userEmail">Email</label>
+                                    <input type="email" id="userEmail" name="userEmail" class="form-input" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="userLocation">Location</label>
+                                    <input type="text" id="userLocation" name="userLocation" class="form-input">
+                                </div>
+                                <div class="skills-section">
+                                    <div class="skills-group">
+                                        <label>Skills I Can Teach</label>
+                                        <div class="skills-container" id="skillsOffered">
+                                            <!-- Skills will be added here -->
+                                        </div>
+                                        <div class="add-skill-container">
+                                            <input type="text" id="newOfferedSkill" class="add-skill-input" placeholder="Enter skill name...">
+                                            <button type="button" class="add-skill-btn" onclick="addSkill('offered')">Add</button>
+                                        </div>
+                                    </div>
+                                    <div class="skills-group">
+                                        <label>Skills I Want to Learn</label>
+                                        <div class="skills-container" id="skillsWanted">
+                                            <!-- Skills will be added here -->
+                                        </div>
+                                        <div class="add-skill-container">
+                                            <input type="text" id="newWantedSkill" class="add-skill-input" placeholder="Enter skill name...">
+                                            <button type="button" class="add-skill-btn" onclick="addSkill('wanted')">Add</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="availability">Availability</label>
+                                    <select id="availability" name="availability" class="form-select">
+                                        <option value="weekends">Weekends</option>
+                                        <option value="weekdays">Weekdays</option>
+                                        <option value="evenings">Evenings</option>
+                                        <option value="flexible">Flexible</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="profileVisibility">Profile Visibility</label>
+                                    <select id="profileVisibility" name="profileVisibility" class="form-select">
+                                        <option value="public">Public</option>
+                                        <option value="private">Private</option>
+                                    </select>
+                                    <small class="form-help">
+                                        <strong>Public:</strong> Visible to everyone<br>
+                                        <strong>Private:</strong> Only visible to people you've accepted skill exchanges with
+                                    </small>
+                                </div>
+                                <div class="profile-actions">
+                                    <button type="button" class="btn btn-primary" onclick="saveProfile()">Save Changes</button>
+                                    <button type="button" class="btn btn-secondary" onclick="discardProfile()">Discard Changes</button>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="profile-right">
+                            <div class="profile-photo-section">
+                                <div class="profile-photo-container">
+                                    <img id="profilePhoto" src="" alt="Profile Photo" class="profile-photo">
+                                    <div class="photo-overlay">
+                                        <button class="change-photo-btn" onclick="changePhoto()">Change Photo</button>
+                                    </div>
+                                </div>
+                                <input type="file" id="photoInput" accept="image/*" style="display: none;">
+                                <p class="photo-label">Profile Photo</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sent Requests Tab -->
+                <div id="sentTab" class="profile-tab-content" style="display: none;">
+                    <div class="requests-section">
+                        <h3>Requests I Sent</h3>
+                        <div id="sentRequestsList" class="requests-list">
+                            <!-- Sent requests will be loaded here -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Received Requests Tab -->
+                <div id="receivedTab" class="profile-tab-content" style="display: none;">
+                    <div class="requests-section">
+                        <h3>Requests I Received</h3>
+                        <div id="receivedRequestsList" class="requests-list">
+                            <!-- Received requests will be loaded here -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Chat Tab -->
+                <div id="chatTab" class="profile-tab-content" style="display: none;">
+                    <div class="chat-section">
+                        <h3>My Chats</h3>
+                        <div id="chatList" class="chat-list">
+                            <!-- Chat contacts will be loaded here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Request Modal -->
+    <div id="requestModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Send Skill Swap Request</h2>
+                <span class="close" onclick="hideRequestModal()">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="request-form">
+                    <div class="form-group">
+                        <label>Choose one of your skills to offer</label>
+                        <select id="mySkillSelect" class="form-select">
+                            <option value="">Select your skill...</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Choose one of their skills you want to learn</label>
+                        <select id="theirSkillSelect" class="form-select">
+                            <option value="">Select their skill...</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Message</label>
+                        <textarea id="requestMessage" class="form-textarea" rows="4" placeholder="Write your message..."></textarea>
+                    </div>
+                    <button class="btn btn-primary" onclick="submitRequest()">Send Request</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- User Profile Modal -->
+    <div id="userProfileModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="userProfileName">User Profile</h2>
+                <span class="close" onclick="hideUserProfile()">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="user-profile-content">
+                    <div class="user-profile-left">
+                        <img id="userProfileImage" src="" alt="Profile" class="user-profile-photo">
+                        <div class="user-profile-info">
+                            <div class="user-profile-field">
+                                <strong>Location:</strong> <span id="userProfileLocation"></span>
+                            </div>
+                            <div class="user-profile-field">
+                                <strong>Availability:</strong> <span id="userProfileAvailability"></span>
+                            </div>
+                            <div class="user-profile-field">
+                                <strong>Rating:</strong> <span id="userProfileRating"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="user-profile-right">
+                        <div class="user-profile-skills">
+                            <div class="skills-group">
+                                <h4>Skills They Offer</h4>
+                                <div id="userProfileOfferedSkills" class="skills-tags">
+                                    <!-- Skills will be loaded here -->
+                                </div>
+                            </div>
+                            <div class="skills-group">
+                                <h4>Skills They Want to Learn</h4>
+                                <div id="userProfileWantedSkills" class="skills-tags">
+                                    <!-- Skills will be loaded here -->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="user-profile-actions">
+                            <button class="btn btn-primary" onclick="openRequestModal(selectedUser.id)">Send Request</button>
+                            <button id="rateUserButton" class="btn btn-secondary" style="display: none;">Rate User</button>
+                            <button id="chatUserButton" class="btn btn-success" style="display: none;" onclick="openChatWithUser()">Chat</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Rating Modal -->
+    <div id="ratingModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Rate <span id="ratingUserName"></span></h2>
+                <span class="close" onclick="hideRatingModal()">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="rating-form">
+                    <div class="rating-stars">
+                        <span class="rating-star" onclick="setRating(1)">★</span>
+                        <span class="rating-star" onclick="setRating(2)">★</span>
+                        <span class="rating-star" onclick="setRating(3)">★</span>
+                        <span class="rating-star" onclick="setRating(4)">★</span>
+                        <span class="rating-star" onclick="setRating(5)">★</span>
+                    </div>
+                    <div class="form-group">
+                        <label>Comment (Optional)</label>
+                        <textarea id="ratingComment" class="form-textarea" rows="3" placeholder="Share your experience..."></textarea>
+                    </div>
+                    <button class="btn btn-primary" onclick="submitRating()">Submit Rating</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Chat Modal -->
+    <div id="chatModal" class="modal">
+        <div class="modal-content chat-modal">
+            <div class="modal-header">
+                <h2 id="chatUserName">Chat with User</h2>
+                <span class="close" onclick="hideChatModal()">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="chat-container">
+                    <div class="chat-messages" id="chatMessages">
+                        <!-- Messages will be loaded here -->
+                    </div>
+                    <div class="chat-input-container">
+                        <input type="text" id="chatInput" class="chat-input" placeholder="Type your message..." onkeypress="handleChatKeyPress(event)">
+                        <button class="btn btn-primary chat-send-btn" onclick="sendMessage()">Send</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="notification" class="notification"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
