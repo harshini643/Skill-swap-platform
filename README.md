@@ -7,6 +7,13 @@ The Skill Swap Platform is designed to facilitate the exchange of skills among u
 - Kudupudi Sriharshini
 - Akshaya Putti
 - Barenkala Yojitha
+
+- 🚀 How to Run the Project
+To explore the Skill Swap Platform frontend:
+
+Clone or download this repository.
+
+Open the file named index.html in your browser.
 ## ✨ Features
 
 - 🔐 JWT-based User Authentication (Login/Signup)
@@ -57,5 +64,7 @@ The Skill Swap Platform is designed to facilitate the exchange of skills among u
 - All profile and request data is updated in real-time
 - Basic error messages and feedback are displayed in the UI
 - Login form is linked to backend API (`/login`)
+
+- 
 
 ---
